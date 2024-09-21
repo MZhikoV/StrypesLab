@@ -83,6 +83,7 @@
         "forward_list": "cpp",
         "fstream": "cpp",
         "climits": "cpp",
-        "bitset": "cpp"
+        "bitset": "cpp",
+        "cstdarg": "cpp"
     }
 }
