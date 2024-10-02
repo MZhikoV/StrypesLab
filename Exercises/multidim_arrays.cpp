@@ -65,35 +65,85 @@ int main() {
 
 
 
-    //Solution 2 int rows, int cols, we don't change sizes
-    int cols, rows;
-    std::cin>>rows>>cols;
+    // //Solution 2 int rows, int cols, we don't change sizes
+    // int cols, rows;
+    // std::cin>>rows>>cols;
 
-    //create a dynamic array for all elements (rows*cols), elements are in a sequence
-    int * data=(int*)malloc(rows*cols*sizeof(int));
+    // //create a dynamic array for all elements (rows*cols), elements are in a sequence
+    // int * data=(int*)malloc(rows*cols*sizeof(int));
+
+    // if (!data) {
+    //     std::cout<<"Error!"<<std::endl;
+    //     return 0;
+    // };
+
+    // //initialise elements
+    // for (int i=0; i<rows; i++) {
+    //     for (int j=0; j<cols;j++) {
+    //         std::cin>>data[(i*cols+j)];
+    //     };
+    // };
+
+    // //print elements
+    // for (int i=0; i<rows; i++) {
+    //     for (int j=0; j<cols;j++) {
+    //         std::cout<<data[(i*cols+j)]<<' ';
+    //     };
+    //     std::cout<<std::endl;
+    // };
+
+    // std::cout<<std::endl;
+
+    // free(data);
+
+    //solution 3 jagged array fixed rows, diff, cols sizes
+    int rows;
+    std::cin>>rows;
+
+    //create prefix array, last element is the total number of data array elements
+    int * offsetArray=(int*)malloc((rows+1)*sizeof(int));
+
+    if (!offsetArray) {
+        std::cout<<"Error!"<<std::endl;
+        return 0;
+    };
+
+    //setting the first element to be '0'
+    offsetArray[0]=0;
+    int tmp=0;
+
+    //initialising the prefix array
+    for (int i=1; i<=rows; i++) {
+        std::cin>>tmp;
+        offsetArray[i]=offsetArray[i-1]+tmp;
+    };
+
+    //allocate jogged arrai as a sequence of numbers
+    int* data=(int*)malloc(offsetArray[rows]*sizeof(int));
 
     if (!data) {
         std::cout<<"Error!"<<std::endl;
         return 0;
     };
 
-    //initialise elements
+    //initializing the jagged data array
     for (int i=0; i<rows; i++) {
-        for (int j=0; j<cols;j++) {
-            std::cin>>data[(i*cols+j)];
+        for (int j=0; j<(offsetArray[i+1]-offsetArray[i]); j++){
+            std::cin>>data[offsetArray[i]+j];
         };
     };
 
-    //print elements
+    //print jogged array
     for (int i=0; i<rows; i++) {
-        for (int j=0; j<cols;j++) {
-            std::cout<<data[(i*cols+j)]<<' ';
+        for (int j=0; j<(offsetArray[i+1]-offsetArray[i]); j++){
+            std::cout<<data[offsetArray[i]+j]<<' ';
         };
         std::cout<<std::endl;
     };
 
     std::cout<<std::endl;
 
+    free(offsetArray);
     free(data);
 
     system("pause");
