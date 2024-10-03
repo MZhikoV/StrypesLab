@@ -53,11 +53,11 @@
 //     return minEl;
 // };
 
-int sum(int count, ...) {
+int sum (int count, ...) {
     int result=0;
 
     std::va_list args;
-    va_start(args,count); //initialise the argument list
+    va_start(args,count);
 
     for (int i=0; i<count; i++) {
         int v=va_arg(args,int);
@@ -70,14 +70,14 @@ int sum(int count, ...) {
     std::cout<<std::endl;
 
     return result;
-};
+} ;
+
 
 int max(int count, ...) {
     int result=INT_MIN;
 
     std::va_list args;
-
-    va_start(args,count); //initialise argument list
+    va_start(args,count);
 
     for (int i=0; i<count; i++) {
         int v=va_arg(args,int);
@@ -92,19 +92,18 @@ int max(int count, ...) {
     std::cout<<std::endl;
 
     return result;
-};
+}
 
 int min(int count, ...) {
     int result=INT_MAX;
 
-    std::va_list(args); //initialise arguments list
-
-    va_start(args,count);
+    std::va_list args;
+    va_start(args, count);
 
     for (int i=0; i<count; i++) {
-        int v=va_arg(args, int);
+        int v=va_arg(args,int);
         std::cout<<v<<' ';
-        if (result>v) {
+        if(result>v) {
             result=v;
         };
     };
@@ -116,6 +115,8 @@ int min(int count, ...) {
     return result;
 }
 
+
+
 int main() {
 
     int result=sum(4, 10, 20, 30, 40);
@@ -124,7 +125,7 @@ int main() {
     int maxel=max(5, 1, 420, 16, 30, 940);
     std::cout<<"Max element is: "<<maxel<<std::endl<<std::endl;
 
-    int minel=min(5, 1, 420, 0, 30, 940);
+    int minel=min(5, 1, 420, -10000, 30, 940);
     std::cout<<"Min element is: "<<minel<<std::endl<<std::endl;
 
 
